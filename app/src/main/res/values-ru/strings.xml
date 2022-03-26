@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Книга рецептов</string>
+    <string name="add_recipe_text">Добавление рецепта </string>
+    <string name="add_recipe_button">Добавить рецепт</string>
+    <string name="new_recipe_title">Название</string>
+
 </resources>

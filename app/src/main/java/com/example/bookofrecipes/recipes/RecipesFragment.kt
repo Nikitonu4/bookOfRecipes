@@ -8,8 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.bookofrecipes.R
-import com.example.bookofrecipes.database.BookOfRecipeDatabase
+import com.example.bookofrecipes.data.database.BookOfRecipeDatabase
 import com.example.bookofrecipes.databinding.RecipesListFragmentBinding
 
 class RecipesFragment : Fragment() {
@@ -23,7 +24,7 @@ class RecipesFragment : Fragment() {
             inflater, R.layout.recipes_list_fragment, container, false)
 
         val application = requireNotNull(this.activity).application
-        val dao = BookOfRecipeDatabase.getInstance(application).getRecipeDatabaseDao()
+        val dao = BookOfRecipeDatabase.getInstance(application).getRecipeDao()
         val viewModelFactory = RecipesViewModelFactory(dao, application)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(RecipesViewModel::class.java)
@@ -35,6 +36,10 @@ class RecipesFragment : Fragment() {
             if (recipes != null)
                 adapter.data = recipes
         })
+
+        binding.addRecipe.setOnClickListener {
+            findNavController().navigate(RecipesFragmentDirections.actionRecipesFragmentToAddRecipeFragment())
+        }
 
 //        viewModel.navigateToRecipe.observe(viewLifecycleOwner, Observer { recipe ->
 //            if (recipe != null) {

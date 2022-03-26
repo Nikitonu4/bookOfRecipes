@@ -10,5 +10,14 @@
         android:id="@+id/recipesFragment"
         android:name="com.example.bookofrecipes.recipes.RecipesFragment"
         tools:layout="@layout/recipes_list_fragment"
-        android:label="RecipesFragment" />
+        android:label="RecipesFragment" >
+        <action
+            android:id="@+id/action_recipesFragment_to_addRecipeFragment"
+            app:destination="@id/addRecipesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addRecipesFragment"
+        android:name="com.example.bookofrecipes.addrecipe.AddRecipeFragment"
+        android:label="AddReciperagment"
+        tools:layout="@layout/add_recipe_fragment"/>
 </navigation>

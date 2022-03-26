@@ -1,4 +1,4 @@
-package com.example.bookofrecipes.recipes
+package com.example.bookofrecipes.addrecipe
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -6,12 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.bookofrecipes.data.entity.Recipe
 import com.example.bookofrecipes.data.dao.RecipeDatabaseDao
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
-class RecipesViewModel(
+class AddRecipeViewModel(
     val dao: RecipeDatabaseDao,
     application: Application
 ) : AndroidViewModel(application) {
@@ -19,21 +16,23 @@ class RecipesViewModel(
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    val recipes = dao.getAllRecipes()
+    fun onSave(title: String) {
+        uiScope.launch {
+            val recipe = Recipe()
+            recipe.title = title
 
-    private val _navigateToRecipe = MutableLiveData<Recipe>()
-    val navigateToRecipe: LiveData<Recipe>
-        get() = _navigateToRecipe
-
-    private suspend fun getRecipesFromDatabase(): LiveData<List<Recipe>> {
-        return withContext(Dispatchers.IO) {
-            var recipes = dao.getAllRecipes()
-            recipes
+            insert(recipe)
         }
     }
 
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    private suspend fun insert(recipe: Recipe) {
+        withContext(Dispatchers.IO) {
+            dao.insert(recipe)
+        }
     }
 }

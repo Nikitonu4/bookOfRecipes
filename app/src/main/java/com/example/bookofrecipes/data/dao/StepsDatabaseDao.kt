@@ -14,30 +14,18 @@
  * limitations under the License.
  */
 
-package com.example.bookofrecipes.database.recipes
+package com.example.bookofrecipes.data.dao
 
+import RecipeStep
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
+import com.example.bookofrecipes.data.entity.Recipe
 
 @Dao
-interface RecipeDatabaseDao {
+interface StepsDatabaseDao {
 
-    @Insert
-    fun insert(recipe: Recipe)
-
-    @Update
-    fun update(recipe: Recipe)
-
-    @Query("SELECT * FROM recipes_table WHERE id = :key")
-    fun get(key: Long): Recipe?
-
-    @Query("DELETE FROM recipes_table")
-    fun clear()
-
-    @Query("SELECT * FROM recipes_table ORDER BY id DESC")
-    fun getAllRecipes(): LiveData<List<Recipe>>
+//    @Transaction
+//    @Query("SELECT * FROM recipes_table")
+//    fun getStepsForUser(): List<RecipeStep>
 
 }

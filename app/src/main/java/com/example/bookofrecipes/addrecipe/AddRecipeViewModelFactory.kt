@@ -1,16 +1,16 @@
-package com.example.bookofrecipes.recipes
+package com.example.bookofrecipes.addrecipe
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.bookofrecipes.data.dao.RecipeDatabaseDao
 
-class RecipesViewModelFactory(
+class AddRecipeViewModelFactory(
     private val dao: RecipeDatabaseDao,
     private val application: Application) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(RecipesViewModel::class.java)) {
-            return RecipesViewModel(dao, application) as T
+        if (modelClass.isAssignableFrom(AddRecipeViewModel::class.java)) {
+            return AddRecipeViewModel(dao, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -1,4 +1,4 @@
-package com.example.bookofrecipes.recipes
+package com.example.bookofrecipes.addrecipe
 
 import android.content.res.Resources
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.entity.Recipe
 
-class RecipesViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class AddRecipesViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val res: Resources = itemView.context.resources
     private val recipeTitle: TextView = itemView.findViewById(R.id.recipe_title)
 
@@ -18,16 +18,16 @@ class RecipesViewHolder private constructor(itemView: View) : RecyclerView.ViewH
     }
 
     companion object {
-        fun from(parent: ViewGroup): RecipesViewHolder {
+        fun from(parent: ViewGroup): AddRecipesViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val view = layoutInflater
                 .inflate(R.layout.recipe_item_fragment, parent, false)
-            return RecipesViewHolder(view)
+            return AddRecipesViewHolder(view)
         }
     }
 }
 
-class RecipesAdapter : RecyclerView.Adapter<RecipesViewHolder>() {
+class AddRecipesAdapter : RecyclerView.Adapter<AddRecipesViewHolder>() {
 
     var data = listOf<Recipe>()
         set(value) {
@@ -37,13 +37,13 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesViewHolder>() {
 
     override fun getItemCount() = data.size
 
-    override fun onBindViewHolder(holder: RecipesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AddRecipesViewHolder, position: Int) {
         val item = data[position]
         holder.bind(item)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesViewHolder {
-        return RecipesViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddRecipesViewHolder {
+        return AddRecipesViewHolder.from(parent)
     }
 }
 

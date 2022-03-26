@@ -1,4 +1,4 @@
-package com.example.bookofrecipes.database.recipes
+package com.example.bookofrecipes.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -7,12 +7,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "recipes_table")
 data class Recipe(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "recipe_id")
     var recipeId: Long = 0L,
 
     @ColumnInfo(name = "title")
-    val title: String =  "",
+    var title: String =  "",
 
-//    @ColumnInfo(name = "steps")
-//    var steps: ArrayList<String> = ArrayList(),
 )

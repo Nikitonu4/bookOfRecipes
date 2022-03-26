@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.example.bookofrecipes.database.ingredients
+package com.example.bookofrecipes.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.example.bookofrecipes.data.entity.Ingredient
 
 @Dao
 interface IngredientDatabaseDao {
@@ -31,13 +32,13 @@ interface IngredientDatabaseDao {
     @Update
     fun update(ingredient: Ingredient)
 
-    @Query("SELECT * FROM ingredients_table WHERE id = :key")
+    @Query("SELECT * FROM ingredients_table WHERE ingredient_id = :key")
     fun get(key: Long): Ingredient?
 
     @Query("DELETE FROM ingredients_table")
     fun clear()
 
-    @Query("SELECT * FROM ingredients_table ORDER BY id DESC")
+    @Query("SELECT * FROM ingredients_table ORDER BY ingredient_id DESC")
     fun getAllIngredients(): LiveData<List<Ingredient>>
 
 }
