@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navigation.xml"
+    app:startDestination="@id/recipesFragment"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <fragment
+        android:id="@+id/recipesFragment"
+        android:name="com.example.bookofrecipes.recipes.RecipesFragment"
+        tools:layout="@layout/recipes_list_fragment"
+        android:label="RecipesFragment" />
+</navigation>
