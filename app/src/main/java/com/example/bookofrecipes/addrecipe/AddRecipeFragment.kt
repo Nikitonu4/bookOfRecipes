@@ -8,13 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.database.BookOfRecipeDatabase
 import com.example.bookofrecipes.data.entity.Step
 import com.example.bookofrecipes.databinding.AddRecipeFragmentBinding
-import com.example.bookofrecipes.recipes.RecipesAdapter
-import com.example.bookofrecipes.recipes.RecipesFragmentDirections
 
 class AddRecipeFragment : Fragment() {
     private lateinit var viewModel: AddRecipeViewModel
@@ -28,8 +25,6 @@ class AddRecipeFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dao = BookOfRecipeDatabase.getInstance(application).getRecipeDao()
-
-
 
         val viewModelFactory = AddRecipeViewModelFactory(dao, application)
 
@@ -49,9 +44,14 @@ class AddRecipeFragment : Fragment() {
 
         binding.addRecipeButton.setOnClickListener {
             // todo проверка на данные
-
-            viewModel.onSave(binding.addRecipeTitle.text.toString())
+            viewModel.onSaveRecipe(binding.addRecipeTitle.text.toString())
         }
+
+        viewModel.recipeId.observe(viewLifecycleOwner, Observer { id ->
+            if (id != -1L) {
+                viewModel.onSaveSteps(id)
+            }
+        })
 //        val dao = BookOfRecipeDatabase.getInstance(application).getRecipeDao()
 //        val viewModelFactory = AddRecipeViewModelFactory(dao, application)
 //        viewModel = ViewModelProvider(this, viewModelFactory)

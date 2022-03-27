@@ -29,7 +29,7 @@ interface RecipeDatabaseDao {
     fun insertRecipe(recipe: Recipe)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertStep(step: Step)
+    fun bulkInsertStep(steps: List<Step>): List<Long>
 
     @Transaction
     @Query("SELECT * FROM recipes_table WHERE title = :title")
@@ -37,6 +37,9 @@ interface RecipeDatabaseDao {
 
     @Query("SELECT * FROM recipes_table ORDER BY recipe_id DESC")
     fun getAllRecipes(): LiveData<List<Recipe>>
+
+    @Query("SELECT * FROM recipes_table WHERE title = :key")
+    fun getRecipeByTitle(key: String): Recipe?
 
 //    @Update
 //    fun update(recipe: Recipe)

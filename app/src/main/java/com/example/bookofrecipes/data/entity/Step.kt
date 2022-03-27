@@ -23,7 +23,6 @@ data class Step(
     @ColumnInfo(name = "number_of_step")
     var numberOfStep: Int =  1,
 
-//    @ColumnInfo(name = "recipe_id", index = true)
-//    val recipeId: Long = 0L,
-
+    @ColumnInfo(name = "recipe_id")
+    var recipeId: Long = 0L,
 )
