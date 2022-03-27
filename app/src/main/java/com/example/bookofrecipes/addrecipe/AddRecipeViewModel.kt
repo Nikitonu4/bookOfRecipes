@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.bookofrecipes.data.entity.Recipe
 import com.example.bookofrecipes.data.dao.RecipeDatabaseDao
+import com.example.bookofrecipes.data.entity.Step
 import kotlinx.coroutines.*
 
 class AddRecipeViewModel(
@@ -15,6 +16,8 @@ class AddRecipeViewModel(
     private var viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    val steps = ArrayList<Step>()
 
     fun onSave(title: String) {
         uiScope.launch {
@@ -32,7 +35,7 @@ class AddRecipeViewModel(
 
     private suspend fun insert(recipe: Recipe) {
         withContext(Dispatchers.IO) {
-            dao.insert(recipe)
+            dao.insertRecipe(recipe)
         }
     }
 }

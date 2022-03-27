@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.database.BookOfRecipeDatabase
+import com.example.bookofrecipes.data.entity.Recipe
 import com.example.bookofrecipes.databinding.RecipesListFragmentBinding
 
 class RecipesFragment : Fragment() {

@@ -20,20 +20,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.bookofrecipes.data.dao.IngredientCountDatabaseDao
 import com.example.bookofrecipes.data.entity.Ingredient
-import com.example.bookofrecipes.data.dao.IngredientDatabaseDao
 import com.example.bookofrecipes.data.entity.Recipe
 import com.example.bookofrecipes.data.dao.RecipeDatabaseDao
-import com.example.bookofrecipes.data.dao.StepsDatabaseDao
-import com.example.bookofrecipes.data.entity.IngredientCount
 import com.example.bookofrecipes.data.entity.Step
 
-@Database(entities = [Recipe::class, Ingredient::class, Step::class, IngredientCount::class  ], version = 1, exportSchema = false)
+@Database(entities = [Recipe::class, Ingredient::class, Step::class  ], version = 1, exportSchema = false)
 abstract class BookOfRecipeDatabase : RoomDatabase() {
 
-    abstract fun getIngredientCountDao(): IngredientCountDatabaseDao
-    abstract fun getIngredientDao(): IngredientDatabaseDao
+//    abstract fun getIngredientDao(): IngredientDatabaseDao
     // todo single responsibility principle
     abstract fun getRecipeDao(): RecipeDatabaseDao
 //    abstract fun getStepsDao(): StepsDatabaseDao

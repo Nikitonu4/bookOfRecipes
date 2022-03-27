@@ -9,9 +9,9 @@ import androidx.room.PrimaryKey
 data class Ingredient(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ingredient_id")
-    var ingredientId: Long = 0L,
+    val ingredientId: Long = 0L,
 
     @ColumnInfo(name = "title")
-    val title: String =  "",
+    var title: String =  "",
 
 )

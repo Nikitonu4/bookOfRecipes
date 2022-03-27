@@ -11,7 +11,7 @@ import com.example.bookofrecipes.data.entity.Recipe
 
 class RecipesViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val res: Resources = itemView.context.resources
-    private val recipeTitle: TextView = itemView.findViewById(R.id.recipe_title)
+    private val recipeTitle: TextView = itemView.findViewById(R.id.ingredient_title)
 
     fun bind(item: Recipe) {
         recipeTitle.text = item.title

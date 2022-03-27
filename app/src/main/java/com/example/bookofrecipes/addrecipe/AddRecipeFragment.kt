@@ -11,7 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.database.BookOfRecipeDatabase
+import com.example.bookofrecipes.data.entity.Step
 import com.example.bookofrecipes.databinding.AddRecipeFragmentBinding
+import com.example.bookofrecipes.recipes.RecipesAdapter
 import com.example.bookofrecipes.recipes.RecipesFragmentDirections
 
 class AddRecipeFragment : Fragment() {
@@ -27,15 +29,28 @@ class AddRecipeFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dao = BookOfRecipeDatabase.getInstance(application).getRecipeDao()
 
+
+
         val viewModelFactory = AddRecipeViewModelFactory(dao, application)
 
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(AddRecipeViewModel::class.java)
+
+        val stepsAdapter = AddStepsAdapter()
+        stepsAdapter.data = viewModel.steps
+        stepsAdapter.viewModel = viewModel
+        binding.stepsList.adapter = stepsAdapter
+
+
+        binding.addStepButton.setOnClickListener {
+            viewModel.steps.add(Step())
+            stepsAdapter.data = viewModel.steps
+        }
+
         binding.addRecipeButton.setOnClickListener {
             // todo проверка на данные
 
             viewModel.onSave(binding.addRecipeTitle.text.toString())
-
         }
 //        val dao = BookOfRecipeDatabase.getInstance(application).getRecipeDao()
 //        val viewModelFactory = AddRecipeViewModelFactory(dao, application)
