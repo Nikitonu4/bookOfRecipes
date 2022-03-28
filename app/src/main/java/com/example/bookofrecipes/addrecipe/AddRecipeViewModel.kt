@@ -1,16 +1,17 @@
 package com.example.bookofrecipes.addrecipe
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.bookofrecipes.data.entity.Recipe
-import com.example.bookofrecipes.data.dao.RecipeDatabaseDao
+import com.example.bookofrecipes.data.dao.BookOfRecipesDatabaseDao
 import com.example.bookofrecipes.data.entity.Step
 import kotlinx.coroutines.*
 
 class AddRecipeViewModel(
-    val dao: RecipeDatabaseDao,
+    val dao: BookOfRecipesDatabaseDao,
     application: Application
 ) : AndroidViewModel(application) {
     private var viewModelJob = Job()
@@ -19,25 +20,35 @@ class AddRecipeViewModel(
 
     val steps = ArrayList<Step>()
 
+    private val _canCreateNewRecipe = MutableLiveData<Boolean>()
+    val canCreateNewRecipe: LiveData<Boolean>
+        get() = _canCreateNewRecipe
+
+    private val _isExistRecipe = MutableLiveData<Boolean>()
+    val isExistRecipe: LiveData<Boolean>
+        get() = _isExistRecipe
+
     private val _recipeId = MutableLiveData<Long>()
     val recipeId: LiveData<Long>
         get() = _recipeId
 
+    private val _navigateToNewRecipe = MutableLiveData<Boolean>()
+    val navigateAfterNewRecipe: LiveData<Boolean>
+        get() = _navigateToNewRecipe
+
     private fun initializeRecipeId(title: String) {
         uiScope.launch {
-            _recipeId.value = getIdRecipeFromDatabase(title)
+            val recipeId = getRecipeByTitleFromDatabase(title)?.recipeId
+            _recipeId.value = recipeId!!
         }
     }
 
-    private suspend fun getIdRecipeFromDatabase(title: String): Long {
-        return withContext(Dispatchers.IO) {
-            dao.getRecipeByTitle(title)?.recipeId
-        }!!
-    }
+    // ViewModel->DAO PART //
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
+    private suspend fun getRecipeByTitleFromDatabase(title: String): Recipe? {
+        return withContext(Dispatchers.IO) {
+            dao.getRecipeByTitle(title)
+        }
     }
 
     private suspend fun insertRecipe(recipe: Recipe) {
@@ -51,13 +62,28 @@ class AddRecipeViewModel(
             dao.bulkInsertStep(steps)
         }
     }
+    ///////////////////////////
+
+
+    fun existRecipe(title: String) {
+        uiScope.launch {
+            val recipe = getRecipeByTitleFromDatabase(title)
+            val isExistRecipe = recipe != null
+            _isExistRecipe.value = isExistRecipe
+            _canCreateNewRecipe.value = !isExistRecipe
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 
     fun onSaveSteps(id: Long) {
         uiScope.launch {
             steps.forEachIndexed { index, step -> step.recipeId = id
                 step.numberOfStep = index+1}
             insertSteps(steps)
-//            _navigateToRecipes.value = true
         }
     }
 
@@ -68,6 +94,11 @@ class AddRecipeViewModel(
 
             insertRecipe(recipe)
             initializeRecipeId(title)
+            _navigateToNewRecipe.value = true
         }
+    }
+
+    fun finishNavigate() {
+        _navigateToNewRecipe.value = false
     }
 }

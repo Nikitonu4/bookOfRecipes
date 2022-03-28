@@ -23,12 +23,12 @@ import com.example.bookofrecipes.data.entity.Step
 import com.example.bookofrecipes.data.relations.RecipeWithSteps
 
 @Dao
-interface RecipeDatabaseDao {
+interface BookOfRecipesDatabaseDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert()
     fun insertRecipe(recipe: Recipe)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun bulkInsertStep(steps: List<Step>): List<Long>
 
     @Transaction

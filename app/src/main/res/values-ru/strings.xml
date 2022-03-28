@@ -10,4 +10,10 @@
     <string name="step_description">Описание шага</string>
     <string name="ingredient_name">Название</string>
     <string name="ingredient_count">Кол-во</string>
+
+    <!--ERRORS-->
+    <string name="error_unque_title">Название существует</string>
+    <string name="error_empty_title">Введите название</string>
+
+
 </resources>

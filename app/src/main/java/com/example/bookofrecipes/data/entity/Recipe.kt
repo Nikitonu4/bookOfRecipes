@@ -2,9 +2,10 @@ package com.example.bookofrecipes.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "recipes_table")
+@Entity(tableName = "recipes_table", indices = [Index(value = ["title"], unique = true)])
 data class Recipe(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "recipe_id")

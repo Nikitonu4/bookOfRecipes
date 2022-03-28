@@ -10,4 +10,8 @@
     <string name="ingredient_name">Name</string>
     <string name="ingredient_count">Count</string>
 
+<!--ERRORS-->
+    <string name="error_unque_title">Title exist</string>
+    <string name="error_empty_title">Fill title</string>
+
 </resources>
