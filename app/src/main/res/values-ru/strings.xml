@@ -7,6 +7,7 @@
     <string name="add_step_title">Добавить шаг</string>
     <string name="add_ingredient_title">Добавить ингредиент</string>
     <string name="add_recipe_steps_title">Шаги</string>
+    <string name="add_recipe_ingredients_title">Ингредиенты</string>
     <string name="step_description">Описание шага</string>
     <string name="ingredient_name">Название</string>
     <string name="ingredient_count">Кол-во</string>

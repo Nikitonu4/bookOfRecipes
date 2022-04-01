@@ -14,4 +14,10 @@ data class Ingredient(
     @ColumnInfo(name = "title")
     var title: String =  "",
 
+    @ColumnInfo(name = "amount")
+    var amount: String =  "",
+
+    // временное, чтобы проверить хотя бы один ко многим
+    @ColumnInfo(name = "recipe_id")
+    var recipeId: Long = 0L,
 )

@@ -28,10 +28,7 @@ import com.example.bookofrecipes.data.entity.Step
 @Database(entities = [Recipe::class, Ingredient::class, Step::class  ], version = 1, exportSchema = false)
 abstract class BookOfRecipeDatabase : RoomDatabase() {
 
-//    abstract fun getIngredientDao(): IngredientDatabaseDao
-    // todo single responsibility principle
     abstract fun getRecipeDao(): BookOfRecipesDatabaseDao
-//    abstract fun getStepsDao(): StepsDatabaseDao
 
     companion object {
         @Volatile

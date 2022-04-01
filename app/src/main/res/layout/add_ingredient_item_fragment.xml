@@ -7,30 +7,30 @@
     android:minHeight="55dp">
 
     <EditText
-        android:id="@+id/ingredient_title"
+        android:id="@+id/ingredientTitle"
         android:layout_width="188dp"
         android:layout_height="wrap_content"
         android:hint="@string/ingredient_name"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/deleteIngredientButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/ingredient_count"
+        android:id="@+id/ingredientAmount"
         android:layout_width="123dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:inputType="number"
+        android:inputType="text"
         android:hint="@string/ingredient_count"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ingredient_title"
+        app:layout_constraintStart_toEndOf="@+id/ingredientTitle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/deleteIngredientButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="4dp"

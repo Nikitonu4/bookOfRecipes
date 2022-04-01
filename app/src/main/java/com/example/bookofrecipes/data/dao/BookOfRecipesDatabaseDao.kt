@@ -18,6 +18,7 @@ package com.example.bookofrecipes.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.bookofrecipes.data.entity.Ingredient
 import com.example.bookofrecipes.data.entity.Recipe
 import com.example.bookofrecipes.data.entity.Step
 import com.example.bookofrecipes.data.relations.RecipeWithSteps
@@ -28,8 +29,11 @@ interface BookOfRecipesDatabaseDao {
     @Insert()
     fun insertRecipe(recipe: Recipe)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun bulkInsertStep(steps: List<Step>): List<Long>
+    @Insert()
+    fun bulkInsertSteps(steps: List<Step>): List<Long>
+
+    @Insert()
+    fun bulkInsertIngredients(ingredients: List<Ingredient>): List<Long>
 
     @Transaction
     @Query("SELECT * FROM recipes_table WHERE title = :title")
@@ -41,11 +45,16 @@ interface BookOfRecipesDatabaseDao {
     @Query("SELECT * FROM recipes_table WHERE title = :key")
     fun getRecipeByTitle(key: String): Recipe?
 
+    @Query("SELECT * FROM recipes_table WHERE recipe_id = :key")
+    fun getRecipeById(key: Long): Recipe?
+
+    @Delete
+    fun delete(recipe: Recipe)
+
 //    @Update
 //    fun update(recipe: Recipe)
 //
-//    @Query("SELECT * FROM recipes_table WHERE recipe_id = :key")
-//    fun get(key: Long): Recipe?
+
 //
 //    @Query("DELETE FROM recipes_table")
 //    fun clear()

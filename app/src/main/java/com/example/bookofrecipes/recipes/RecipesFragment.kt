@@ -2,6 +2,7 @@ package com.example.bookofrecipes.recipes
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -11,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.database.BookOfRecipeDatabase
-import com.example.bookofrecipes.data.entity.Recipe
 import com.example.bookofrecipes.databinding.RecipesListFragmentBinding
 
 class RecipesFragment : Fragment() {
@@ -32,15 +32,28 @@ class RecipesFragment : Fragment() {
 
         val adapter = RecipesAdapter()
         binding.recipesList.adapter = adapter
+        adapter.viewModel = viewModel
 
         viewModel.recipes.observe(viewLifecycleOwner, Observer { recipes ->
             if (recipes != null)
                 adapter.data = recipes
         })
 
+        viewModel.navigateToRecipe.observe(viewLifecycleOwner, Observer { recipe ->
+            if (recipe != null) {
+                this.findNavController().navigate(
+                    RecipesFragmentDirections
+                        .actionRecipesFragmentToTheRecipeFragment(recipe.recipeId)
+                )
+                viewModel.doneNavigating()
+            }
+        })
+
         binding.addRecipe.setOnClickListener {
             findNavController().navigate(RecipesFragmentDirections.actionRecipesFragmentToAddRecipeFragment())
         }
+
+
 
 //        viewModel.navigateToRecipe.observe(viewLifecycleOwner, Observer { recipe ->
 //            if (recipe != null) {

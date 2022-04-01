@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.database.BookOfRecipeDatabase
+import com.example.bookofrecipes.data.entity.Ingredient
 import com.example.bookofrecipes.data.entity.Step
 import com.example.bookofrecipes.databinding.AddRecipeFragmentBinding
 
@@ -37,18 +38,27 @@ class AddRecipeFragment : Fragment() {
             .get(AddRecipeViewModel::class.java)
 
         val stepsAdapter = AddStepsAdapter()
-        stepsAdapter.data = viewModel.steps
         stepsAdapter.viewModel = viewModel
         binding.stepsList.adapter = stepsAdapter
+        stepsAdapter.data = viewModel.steps
 
+        val ingredientAdapter = AddIngredientAdapter()
+        ingredientAdapter.viewModel = viewModel
+        binding.ingredientsList.adapter = ingredientAdapter
+        ingredientAdapter.data = viewModel.ingredients
 
+        // LISTENERS PART
         binding.addStepButton.setOnClickListener {
             viewModel.steps.add(Step())
             stepsAdapter.data = viewModel.steps
         }
 
+        binding.addIngredientButton.setOnClickListener {
+            viewModel.ingredients.add(Ingredient())
+            ingredientAdapter.data = viewModel.ingredients
+        }
+
         binding.addRecipeButton.setOnClickListener {
-            // todo проверка на данные
             val title = binding.addRecipeTitle.text.toString()
             if(title.isEmpty()){
                 val error: String = application.resources.getString(R.string.error_empty_title)
@@ -64,9 +74,10 @@ class AddRecipeFragment : Fragment() {
         // OBSERVE PART
 
         // как только сохранится рецепт - закидываем шаги
-        viewModel.recipeId.observe(viewLifecycleOwner, Observer { id ->
-            if (id != -1L) {
-                viewModel.onSaveSteps(id)
+        viewModel.recipeId.observe(viewLifecycleOwner, Observer { recipeId ->
+            if (recipeId != -1L) {
+                viewModel.onSaveSteps(recipeId)
+                viewModel.onSaveIngredients(recipeId)
             }
         })
 
@@ -81,7 +92,7 @@ class AddRecipeFragment : Fragment() {
         viewModel.navigateAfterNewRecipe.observe(viewLifecycleOwner, Observer { navigate ->
             if (navigate!!) {
                 this.findNavController().navigateUp()
-                viewModel.finishNavigate()
+                viewModel.doneNavigating()
             }
         })
 

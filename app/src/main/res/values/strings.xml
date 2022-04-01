@@ -6,6 +6,7 @@
     <string name="add_step_title">Add step</string>
     <string name="add_ingredient_title">Add ingredient</string>
     <string name="add_recipe_steps_title">Steps</string>
+    <string name="add_recipe_ingredients_title">Ingredients</string>
     <string name="step_description">Description</string>
     <string name="ingredient_name">Name</string>
     <string name="ingredient_count">Count</string>

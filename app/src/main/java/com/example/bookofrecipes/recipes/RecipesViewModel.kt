@@ -6,10 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.bookofrecipes.data.entity.Recipe
 import com.example.bookofrecipes.data.dao.BookOfRecipesDatabaseDao
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class RecipesViewModel(
     val dao: BookOfRecipesDatabaseDao,
@@ -30,6 +27,29 @@ class RecipesViewModel(
             var recipes = dao.getAllRecipes()
             recipes
         }
+    }
+
+    fun openRecipeInfo(recipe: Recipe) {
+        uiScope.launch {
+            _navigateToRecipe.value = recipe
+        }
+    }
+
+    fun deleteRecipe(recipe: Recipe){
+        uiScope.launch {
+            deleteRecipeFromDb(recipe)
+            // todo удалить связанные
+        }
+    }
+
+    private suspend fun deleteRecipeFromDb(recipe: Recipe) {
+        withContext(Dispatchers.IO) {
+            dao.delete(recipe)
+        }
+    }
+
+    fun doneNavigating() {
+        _navigateToRecipe.value = null
     }
 
     override fun onCleared() {

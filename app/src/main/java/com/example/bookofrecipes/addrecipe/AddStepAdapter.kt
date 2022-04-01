@@ -22,7 +22,6 @@ class AddStepsViewHolder private constructor(itemView: View) : RecyclerView.View
     fun bind(item: Step) {
         stepDescription.setText(item.description)
         stepDescription.doAfterTextChanged { item.description = stepDescription.text.toString() }
-
     }
 
     companion object {

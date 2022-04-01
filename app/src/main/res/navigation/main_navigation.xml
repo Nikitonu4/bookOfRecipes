@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation.xml"
-    app:startDestination="@id/recipesFragment"
-    xmlns:tools="http://schemas.android.com/tools">
+    app:startDestination="@id/recipesFragment">
 
 
     <fragment
         android:id="@+id/recipesFragment"
         android:name="com.example.bookofrecipes.recipes.RecipesFragment"
-        tools:layout="@layout/recipes_list_fragment"
-        android:label="RecipesFragment" >
+        android:label="RecipesFragment"
+        tools:layout="@layout/recipes_list_fragment">
         <action
             android:id="@+id/action_recipesFragment_to_addRecipeFragment"
             app:destination="@id/addRecipesFragment" />
+        <action
+            android:id="@+id/action_recipesFragment_to_theRecipeFragment"
+            app:destination="@id/theRecipeFragment" />
     </fragment>
     <fragment
         android:id="@+id/addRecipesFragment"
         android:name="com.example.bookofrecipes.addrecipe.AddRecipeFragment"
         android:label="AddReciperagment"
-        tools:layout="@layout/add_recipe_fragment"/>
+        tools:layout="@layout/add_recipe_fragment" />
+    <fragment
+
+        android:id="@+id/theRecipeFragment"
+        android:name="com.example.bookofrecipes.therecipe.TheRecipeFragment"
+        android:label="TheRecipeFragment"
+        tools:layout="@layout/the_recipe_fragment">
+        <argument
+            android:name="recipeId"
+            app:argType="long" />
+    </fragment>
+
 </navigation>
