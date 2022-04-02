@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/recipesFragment"
-        android:name="com.example.bookofrecipes.recipes.RecipesFragment"
+        android:name="com.example.bookofrecipes.ui.recipes.RecipesFragment"
         android:label="RecipesFragment"
         tools:layout="@layout/recipes_list_fragment">
         <action
@@ -17,21 +17,45 @@
         <action
             android:id="@+id/action_recipesFragment_to_theRecipeFragment"
             app:destination="@id/theRecipeFragment" />
+        <action
+            android:id="@+id/action_recipesFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
     </fragment>
     <fragment
         android:id="@+id/addRecipesFragment"
-        android:name="com.example.bookofrecipes.addrecipe.AddRecipeFragment"
+        android:name="com.example.bookofrecipes.ui.addrecipe.AddRecipeFragment"
         android:label="AddReciperagment"
         tools:layout="@layout/add_recipe_fragment" />
     <fragment
 
         android:id="@+id/theRecipeFragment"
-        android:name="com.example.bookofrecipes.therecipe.TheRecipeFragment"
+        android:name="com.example.bookofrecipes.ui.therecipe.TheRecipeFragment"
         android:label="TheRecipeFragment"
         tools:layout="@layout/the_recipe_fragment">
         <argument
             android:name="recipeId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_theRecipeFragment_to_stepsFragment"
+            app:destination="@id/stepsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stepsFragment"
+        android:name="com.example.bookofrecipes.ui.steps.StepsFragment"
+        android:label="steps_fragment"
+        tools:layout="@layout/steps_fragment" >
+        <argument
+            android:name="recipeId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.example.bookofrecipes.ui.filter.FilterFragment"
+        android:label="FilterFragment"
+        tools:layout="@layout/filter_list_fragment" >
+<!--        <argument-->
+<!--            android:name="filtredRecipe"-->
+<!--            app:argType="array" />-->
     </fragment>
 
 </navigation>

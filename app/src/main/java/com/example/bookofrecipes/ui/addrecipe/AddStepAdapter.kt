@@ -1,17 +1,14 @@
-package com.example.bookofrecipes.addrecipe
+package com.example.bookofrecipes.ui.addrecipe
 
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookofrecipes.R
-import com.example.bookofrecipes.data.entity.Recipe
 import com.example.bookofrecipes.data.entity.Step
 
 class AddStepsViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {

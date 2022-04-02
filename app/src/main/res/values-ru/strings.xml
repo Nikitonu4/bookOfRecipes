@@ -11,6 +11,13 @@
     <string name="step_description">Описание шага</string>
     <string name="ingredient_name">Название</string>
     <string name="ingredient_count">Кол-во</string>
+    <string name="ingredient_needs">Необходимые ингредиенты</string>
+    <string name="title_step">Текущий шаг</string>
+    <string name="go_to_cook">Вперед готовить!</string>
+    <string name="next_step">Вперед</string>
+    <string name="previous_step">Назад</string>
+    <string name="filter_ingredients_title">Выберите ингредиенты</string>
+    <string name="filter_ingredients_button">Фильтровать</string>
 
     <!--ERRORS-->
     <string name="error_unque_title">Название существует</string>

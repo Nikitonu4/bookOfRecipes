@@ -4,13 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/add_ingredient_item_fragment.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/add_ingredient_item_fragment.xml" value="0.67" />
         <entry key="app/src/main/res/layout/add_recipe_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/add_step_item_fragment.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/recipe_item_fragment.xml" value="1.0" />
+        <entry key="app/src/main/res/layout/filter_item_fragment.xml" value="0.26614583333333336" />
+        <entry key="app/src/main/res/layout/filter_list_fragment.xml" value="0.24205378973105135" />
+        <entry key="app/src/main/res/layout/filter_recipes_fragment.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/need_ingredient_fragment.xml" value="0.15" />
+        <entry key="app/src/main/res/layout/recipe_item_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/recipes_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recipes_list_fragment.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/the_recipe_fragment.xml" value="0.2997416020671835" />
+        <entry key="app/src/main/res/layout/steps_fragment.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/the_recipe_fragment.xml" value="0.33" />
       </map>
     </option>
   </component>

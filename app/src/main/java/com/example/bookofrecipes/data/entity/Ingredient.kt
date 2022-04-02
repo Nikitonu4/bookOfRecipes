@@ -2,9 +2,16 @@ package com.example.bookofrecipes.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "ingredients_table",  foreignKeys = [
+    ForeignKey(
+        entity = Recipe::class,
+        parentColumns = arrayOf("recipe_id"),
+        childColumns = arrayOf("recipe_id"),
+        onDelete = ForeignKey.CASCADE
+    )
 ])
 data class Ingredient(
     @PrimaryKey(autoGenerate = true)

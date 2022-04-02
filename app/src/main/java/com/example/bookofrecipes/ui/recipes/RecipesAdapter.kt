@@ -1,4 +1,4 @@
-package com.example.bookofrecipes.recipes
+package com.example.bookofrecipes.ui.recipes
 
 import android.content.res.Resources
 import android.view.LayoutInflater
@@ -52,7 +52,6 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesViewHolder>() {
         }
         holder.deleteRecipeButton.setOnClickListener {
             viewModel.deleteRecipe(item)
-//            data = viewModel.recipes
         }
     }
 

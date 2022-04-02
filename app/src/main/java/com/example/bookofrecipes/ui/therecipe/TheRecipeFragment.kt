@@ -1,4 +1,4 @@
-package com.example.bookofrecipes.therecipe
+package com.example.bookofrecipes.ui.therecipe
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.database.BookOfRecipeDatabase
+import com.example.bookofrecipes.data.entity.Ingredient
 import com.example.bookofrecipes.databinding.TheRecipeFragmentBinding
 
 class TheRecipeFragment : Fragment() {
@@ -25,25 +27,34 @@ class TheRecipeFragment : Fragment() {
             inflater, R.layout.the_recipe_fragment, container, false
         )
         val application = requireNotNull(this.activity).application
-
         val args = TheRecipeFragmentArgs.fromBundle(requireArguments())
-
         val dao = BookOfRecipeDatabase.getInstance(application).getRecipeDao()
         val viewModelFactory = TheRecipeViewModelFactory(args.recipeId, dao, application)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(TheRecipeViewModel::class.java)
-        viewModel.initializeRecipe()
-//        binding.theRecipeTitle.text = viewModel.recipe.title
 
-//        val adapter = TheRecipeAdapter()
-//        binding.recipesList.adapter = adapter
+        val adapter = TheRecipeAdapter()
+        binding.listOfIngredients.adapter = adapter
 
-        viewModel.shouldBindView.observe(viewLifecycleOwner, Observer { bind ->
-            if (bind!!){
-                binding.theRecipeTitle.text = viewModel.recipe.title
+        viewModel.recipe.observe(viewLifecycleOwner, Observer { recipe ->
+            if (recipe != null) {
+                binding.theRecipeTitle.text = recipe.title
             }
-            viewModel.bindDone()
         })
+
+        viewModel.ingredients.observe(viewLifecycleOwner, Observer { ingredients ->
+            if (ingredients != null) {
+                adapter.data = ingredients as List<Ingredient>
+            }
+        })
+
+        binding.goToCook.setOnClickListener {
+            findNavController().navigate(
+                TheRecipeFragmentDirections.actionTheRecipeFragmentToStepsFragment(
+                    viewModel.recipeId
+                )
+            )
+        }
 
         return binding.root
     }

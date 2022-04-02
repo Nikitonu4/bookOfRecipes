@@ -1,4 +1,4 @@
-package com.example.bookofrecipes.addrecipe
+package com.example.bookofrecipes.ui.addrecipe
 
 import android.os.Bundle
 import android.view.LayoutInflater
