@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.example.bookofrecipes.data.dao.BookOfRecipesDatabaseDao
 import com.example.bookofrecipes.data.entity.Ingredient
 import com.example.bookofrecipes.data.entity.Recipe
@@ -26,8 +27,17 @@ class StepsViewModel(
     val currentStep: LiveData<Step>
         get() = _currentStep
 
+    private val _numberStep = MutableLiveData<Int>()
+    val numberStep: LiveData<Int>
+        get() = _numberStep
+
+    val nextStepVisible: LiveData<Boolean> = Transformations.map(_numberStep) { numberOfStep ->
+        numberOfStep != steps.value?.size
+    }
+
     init {
         initializeRecipe()
+        _numberStep.value = 1
     }
 
     private fun initializeRecipe() {
@@ -42,40 +52,22 @@ class StepsViewModel(
         }
     }
 
-    fun setCurrentStep(pos: Int){
-        _currentStep.value = steps.value?.get(pos)
+    fun refreshCurrentStep() {
+        _currentStep.value = _numberStep.value?.let { steps.value?.get(it - 1) }
     }
 
-
-
-    /**
-     * Moves to the next word in the list
-     */
-    private fun nextWord() {
-        //Select and remove a word from the list
-//        if (wordList.isEmpty()) {
-//            resetList()
-//        }
-//        _word.value = wordList.removeAt(0)
+    fun decrementStep() {
+        if (_numberStep.value != 1) {
+            _numberStep.value = (_numberStep.value)?.minus(1)
+            refreshCurrentStep()
+        }
     }
 
-    /** Methods for buttons presses **/
+    fun incrementStep() {
+        _numberStep.value = (_numberStep.value)?.plus(1)
+        refreshCurrentStep()
+    }
 
-//    fun onSkip() {
-//        _score.value = (_score.value)?.minus(1)
-//        nextWord()
-//    }
-//
-//    fun onCorrect() {
-//        _score.value = (_score.value)?.plus(1)
-//        nextWord()
-//    }
-//
-//    /** Methods for completed events **/
-//
-//    fun onGameFinishComplete() {
-//        _eventGameFinish.value = false
-//    }
 
     override fun onCleared() {
         super.onCleared()

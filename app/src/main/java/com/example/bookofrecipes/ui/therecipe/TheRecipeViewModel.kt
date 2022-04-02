@@ -44,13 +44,6 @@ class TheRecipeViewModel(
         }
     }
 
-//    private suspend fun setStepsFromDatabase() {
-//        withContext(Dispatchers.IO) {
-//            steps = dao.getStepsByRecipeId(recipeId)
-//        }
-//    }
-
-
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()

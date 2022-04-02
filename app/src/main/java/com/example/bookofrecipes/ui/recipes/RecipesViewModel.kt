@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.bookofrecipes.data.entity.Recipe
 import com.example.bookofrecipes.data.dao.BookOfRecipesDatabaseDao
+import com.example.bookofrecipes.data.entity.Ingredient
+import com.example.bookofrecipes.data.entity.Step
 import kotlinx.coroutines.*
 
 class RecipesViewModel(
@@ -22,16 +24,10 @@ class RecipesViewModel(
     val navigateToRecipe: LiveData<Recipe>
         get() = _navigateToRecipe
 
-    private suspend fun getRecipesFromDatabase(): LiveData<List<Recipe>> {
-        return withContext(Dispatchers.IO) {
-            var recipes = dao.getAllRecipes()
-            recipes
-        }
-    }
-
     fun openRecipeInfo(recipe: Recipe) {
         uiScope.launch {
             _navigateToRecipe.value = recipe
+
         }
     }
 

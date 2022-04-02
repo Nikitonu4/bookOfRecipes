@@ -25,6 +25,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.database.BookOfRecipeDatabase
 import com.example.bookofrecipes.data.entity.Ingredient
@@ -38,8 +39,10 @@ class StepsFragment : Fragment() {
 
     private lateinit var viewModel: StepsViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: StepsFragmentBinding = DataBindingUtil.inflate(
@@ -51,41 +54,35 @@ class StepsFragment : Fragment() {
         val viewModelFactory = StepsViewModelFactory(args.recipeId, dao, application)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(StepsViewModel::class.java)
-//        binding.nextStepButton.setOnClickListener {
-////            viewModel.onCorrect()
-//        }
-//        binding.prevButton.setOnClickListener {
-//            viewModel.onSkip()
-//        }
 
         viewModel.steps.observe(viewLifecycleOwner, Observer { steps ->
             if (steps != null) {
-                viewModel.setCurrentStep(0)
+                viewModel.refreshCurrentStep()
             }
         })
 
         viewModel.currentStep.observe(viewLifecycleOwner, Observer { step ->
-            binding.currentStep.text = step.description
+            if(step != null) {
+                binding.currentStep.text = step.description
+            }
         })
-//
-//        viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->
-//            binding.scoreText.text = newScore.toString()
-//        })
-//
-//        viewModel.currentTime.observe(viewLifecycleOwner, Observer { newTime ->
-//            binding.timerText.text = DateUtils.formatElapsedTime(newTime)
-//
-//        })
-//
-//        // Sets up event listening to navigate the player when the game is finished
-//        viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
-//            if (isFinished) {
-//                val currentScore = viewModel.score.value ?: 0
-//                val action = GameFragmentDirections.actionGameToScore(currentScore)
-//                findNavController().navigate(action)
-//                viewModel.onGameFinishComplete()
-//            }
-//        })
+
+        viewModel.nextStepVisible.observe(viewLifecycleOwner, Observer { visible ->
+            binding.nextStepButton.isEnabled = visible
+        })
+
+        binding.prevStepButton.setOnClickListener {
+            if(viewModel.numberStep.value == 1){
+                findNavController().navigateUp()
+            }
+            else{
+                viewModel.decrementStep()
+            }
+        }
+
+        binding.nextStepButton.setOnClickListener {
+            viewModel.incrementStep()
+        }
 
         return binding.root
 

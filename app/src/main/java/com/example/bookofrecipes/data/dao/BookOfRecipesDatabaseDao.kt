@@ -30,6 +30,12 @@ interface BookOfRecipesDatabaseDao {
     fun insertRecipe(recipe: Recipe)
 
     @Insert()
+    fun insertStep(step: Step)
+
+    @Insert()
+    fun insertIngredient(ingredient: Ingredient)
+
+    @Insert()
     fun bulkInsertSteps(steps: List<Step>): List<Long>
 
     @Insert()
