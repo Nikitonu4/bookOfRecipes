@@ -17,11 +17,11 @@
 package com.example.bookofrecipes.data.dao
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.bookofrecipes.data.entity.Ingredient
 import com.example.bookofrecipes.data.entity.Recipe
 import com.example.bookofrecipes.data.entity.Step
-import com.example.bookofrecipes.data.relations.RecipeWithSteps
 
 @Dao
 interface BookOfRecipesDatabaseDao {

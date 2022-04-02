@@ -26,7 +26,7 @@ class RecipesViewHolder private constructor(itemView: View) : RecyclerView.ViewH
         fun from(parent: ViewGroup): RecipesViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val view = layoutInflater
-                .inflate(R.layout.recipe_item_fragment, parent, false)
+                .inflate(R.layout.item_recipe_fragment, parent, false)
             return RecipesViewHolder(view)
         }
     }

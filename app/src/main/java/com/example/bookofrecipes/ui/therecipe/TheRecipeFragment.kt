@@ -1,6 +1,7 @@
 package com.example.bookofrecipes.ui.therecipe
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +50,7 @@ class TheRecipeFragment : Fragment() {
         })
 
         binding.goToCook.setOnClickListener {
-            findNavController().navigate(
+            this.findNavController().navigate(
                 TheRecipeFragmentDirections.actionTheRecipeFragmentToStepsFragment(
                     viewModel.recipeId
                 )

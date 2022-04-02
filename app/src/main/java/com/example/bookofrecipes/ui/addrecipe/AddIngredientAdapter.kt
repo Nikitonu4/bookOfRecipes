@@ -28,7 +28,7 @@ class AddIngredientsViewHolder private constructor(itemView: View) :
         fun from(parent: ViewGroup): AddIngredientsViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val view = layoutInflater
-                .inflate(R.layout.add_ingredient_item_fragment, parent, false)
+                .inflate(R.layout.item_add_ingredient_fragment, parent, false)
             return AddIngredientsViewHolder(view)
         }
     }

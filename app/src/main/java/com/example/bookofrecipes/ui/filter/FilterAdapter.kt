@@ -27,7 +27,7 @@ class FilterViewHolder private constructor(itemView: View) : RecyclerView.ViewHo
         fun from(parent: ViewGroup): FilterViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val view = layoutInflater
-                .inflate(R.layout.filter_item_fragment, parent, false)
+                .inflate(R.layout.item_filter_fragment, parent, false)
             return FilterViewHolder(view)
         }
     }

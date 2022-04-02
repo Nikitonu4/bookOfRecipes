@@ -25,7 +25,7 @@ class AddStepsViewHolder private constructor(itemView: View) : RecyclerView.View
         fun from(parent: ViewGroup): AddStepsViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val view = layoutInflater
-                .inflate(R.layout.add_step_item_fragment, parent, false)
+                .inflate(R.layout.item_add_step_fragment, parent, false)
             return AddStepsViewHolder(view)
         }
     }

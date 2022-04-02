@@ -27,7 +27,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.database.BookOfRecipeDatabase
+import com.example.bookofrecipes.data.entity.Ingredient
 import com.example.bookofrecipes.databinding.StepsFragmentBinding
+import com.example.bookofrecipes.databinding.TheRecipeFragmentBinding
+import com.example.bookofrecipes.ui.therecipe.TheRecipeFragmentArgs
+import com.example.bookofrecipes.ui.therecipe.TheRecipeViewModel
+import com.example.bookofrecipes.ui.therecipe.TheRecipeViewModelFactory
 
 class StepsFragment : Fragment() {
 
@@ -36,7 +41,7 @@ class StepsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        // Inflate view and obtain an instance of the binding class
+        // Get a reference to the binding object and inflate the fragment views.
         val binding: StepsFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.steps_fragment, container, false
         )
@@ -44,18 +49,21 @@ class StepsFragment : Fragment() {
         val args = StepsFragmentArgs.fromBundle(requireArguments())
         val dao = BookOfRecipeDatabase.getInstance(application).getRecipeDao()
         val viewModelFactory = StepsViewModelFactory(args.recipeId, dao, application)
-
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(StepsViewModel::class.java)
-
-        binding.nextStepButton.setOnClickListener {
-//            viewModel.onCorrect()
-        }
-//        binding.skipButton.setOnClickListener {
+//        binding.nextStepButton.setOnClickListener {
+////            viewModel.onCorrect()
+//        }
+//        binding.prevButton.setOnClickListener {
 //            viewModel.onSkip()
 //        }
 
-        /** Setting up LiveData observation relationship **/
+        viewModel.steps.observe(viewLifecycleOwner, Observer { steps ->
+            if (steps != null) {
+                viewModel.setCurrentStep(0)
+            }
+        })
+
         viewModel.currentStep.observe(viewLifecycleOwner, Observer { step ->
             binding.currentStep.text = step.description
         })
