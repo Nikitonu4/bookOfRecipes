@@ -67,12 +67,23 @@ class AddRecipeFragment : Fragment() {
 
         binding.addRecipeButton.setOnClickListener {
             val title = binding.addRecipeTitle.text.toString()
-            if (title.isEmpty()) {
-                val error: String = application.resources.getString(R.string.error_empty_title)
-                binding.addRecipeTitle.setError(error);
-                binding.addRecipeTitle.requestFocus();
-            } else {
-                viewModel.existRecipe(title)
+            when {
+                title.isEmpty() -> {
+                    val error: String = application.resources.getString(R.string.error_empty_title)
+                    binding.addRecipeTitle.setError(error);
+                    binding.addRecipeTitle.requestFocus();
+                }
+                viewModel.steps.size < 3 -> {
+                    val error: String = application.resources.getString(R.string.error_empty_steps)
+                    binding.addRecipeTitle.setError(error);
+                    binding.addRecipeTitle.requestFocus()
+                }
+                viewModel.ingredients.isNullOrEmpty() -> {
+                    val error: String = application.resources.getString(R.string.error_empty_ingredients)
+                    binding.addRecipeTitle.setError(error);
+                    binding.addRecipeTitle.requestFocus()
+                }
+                else ->  viewModel.existRecipe(title)
             }
         }
 

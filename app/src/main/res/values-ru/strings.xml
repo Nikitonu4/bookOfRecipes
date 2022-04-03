@@ -24,6 +24,7 @@
     <!--ERRORS-->
     <string name="error_unque_title">Название существует</string>
     <string name="error_empty_title">Введите название</string>
-
+    <string name="error_empty_steps">Шагов должно быть больше 2</string>
+    <string name="error_empty_ingredients">Введите хотя бы один ингредиент</string>
 
 </resources>

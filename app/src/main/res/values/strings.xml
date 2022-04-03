@@ -23,5 +23,7 @@
 <!--ERRORS-->
     <string name="error_unque_title">Title exist</string>
     <string name="error_empty_title">Fill title</string>
+    <string name="error_empty_steps">Steps must be 2+</string>
+    <string name="error_empty_ingredients">Ingredients must be 1+</string>
 
 </resources>
