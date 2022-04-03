@@ -27,6 +27,8 @@ class RecipesFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dao = BookOfRecipeDatabase.getInstance(application).getRecipeDao()
+
+        // берем аргументы, которые пришли
         val args = RecipesFragmentArgs.fromBundle(requireArguments())
 
         val viewModelFactory = RecipesViewModelFactory(dao, application)
@@ -36,7 +38,6 @@ class RecipesFragment : Fragment() {
         val adapter = RecipesAdapter()
         binding.recipesList.adapter = adapter
         adapter.viewModel = viewModel
-
 
         viewModel.recipes.observe(viewLifecycleOwner, Observer { recipes ->
             if (recipes != null) {

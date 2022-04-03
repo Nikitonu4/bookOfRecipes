@@ -18,6 +18,7 @@
             android:fontFamily="sans-serif"
             android:textSize="30sp"
             android:textStyle="normal"
+            android:textColor="@color/teal_400"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

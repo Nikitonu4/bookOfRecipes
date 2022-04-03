@@ -62,7 +62,6 @@ interface BookOfRecipesDatabaseDao {
     @Delete
     fun deleteRecipe(recipe: Recipe)
 
-
     @Query("DELETE FROM ingredients_table WHERE ingredient_id in (:idList)")
     fun deleteIngredients(idList: List<Long>)
 

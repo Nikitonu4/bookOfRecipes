@@ -48,26 +48,3 @@ abstract class BookOfRecipeDatabase : RoomDatabase() {
         }
     }
 }
-
-//object DBInstance {
-//    //    private static final String DB_NAME = "/sdcard/LianSou/room_test.db";
-//    private val DB_NAME = "book_of_recipes_db"
-//    var appDataBase: BookOfRecipesDb? = null
-//    fun getInstance(context: Context): BookOfRecipesDb? {
-//        if (appDataBase == null) {
-//            synchronized(DBInstance::class.java) {
-//                if (appDataBase == null) {
-//                    appDataBase = Room.databaseBuilder(
-//                        context.applicationContext,
-//                        BookOfRecipesDb::class.java,
-//                        DB_NAME
-//                    )
-//                        .allowMainThreadQueries()
-//                        .build()
-//                }
-//            }
-//        }
-//        return appDataBase
-//    }
-//
-//}
