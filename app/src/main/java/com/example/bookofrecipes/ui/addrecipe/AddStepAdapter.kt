@@ -45,6 +45,7 @@ class AddStepsAdapter : RecyclerView.Adapter<AddStepsViewHolder>() {
     override fun onBindViewHolder(holder: AddStepsViewHolder, position: Int) {
         val item = data[position]
         holder.bind(item)
+
         holder.deleteStepButton.setOnClickListener {
             viewModel.steps.remove(item)
             data = viewModel.steps

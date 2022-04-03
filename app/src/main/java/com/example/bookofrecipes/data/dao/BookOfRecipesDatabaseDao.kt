@@ -78,4 +78,7 @@ interface BookOfRecipesDatabaseDao {
     @Update
     fun updateStep(step: Step)
 
+    @Query("SELECT * FROM ingredients_table it JOIN recipes_table rt ON it.recipe_id = rt.recipe_id WHERE LOWER(it.title) IN (:titles)")
+    fun getRecipeFilterIngredients(titles: List<String>): List<Recipe>
+
 }

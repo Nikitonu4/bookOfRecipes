@@ -8,15 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.database.BookOfRecipeDatabase
-import com.example.bookofrecipes.data.entity.Ingredient
-import com.example.bookofrecipes.data.entity.Recipe
-import com.example.bookofrecipes.data.entity.Step
 import com.example.bookofrecipes.databinding.RecipesListFragmentBinding
-import kotlinx.coroutines.launch
 
 class RecipesFragment : Fragment() {
     private lateinit var viewModel: RecipesViewModel
@@ -32,6 +27,8 @@ class RecipesFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dao = BookOfRecipeDatabase.getInstance(application).getRecipeDao()
+        val args = RecipesFragmentArgs.fromBundle(requireArguments())
+
         val viewModelFactory = RecipesViewModelFactory(dao, application)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(RecipesViewModel::class.java)
@@ -42,8 +39,19 @@ class RecipesFragment : Fragment() {
 
 
         viewModel.recipes.observe(viewLifecycleOwner, Observer { recipes ->
-            if (recipes != null)
-                adapter.data = recipes
+            if (recipes != null) {
+                if (args.filtredIngredients.isNullOrEmpty()) {
+                    adapter.data = recipes
+                } else {
+                    viewModel.getFilteredRecipes(args.filtredIngredients!!.split(','))
+                }
+            }
+        })
+
+        viewModel.filteredRecipes.observe(viewLifecycleOwner, Observer { lst ->
+            if (lst) {
+                adapter.data = viewModel.filtered
+            }
         })
 
         viewModel.navigateToRecipe.observe(viewLifecycleOwner, Observer { recipe ->

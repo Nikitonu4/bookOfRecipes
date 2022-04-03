@@ -17,6 +17,11 @@ class RecipesViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     val recipes = dao.getAllRecipes()
+    var filtered : List<Recipe> = emptyList()
+
+    private val _filteredRecipes = MutableLiveData<Boolean>()
+    val filteredRecipes: LiveData<Boolean>
+        get() = _filteredRecipes
 
     private val _navigateToRecipe = MutableLiveData<Recipe>()
     val navigateToRecipe: LiveData<Recipe>
@@ -39,6 +44,19 @@ class RecipesViewModel(
     private suspend fun deleteRecipeFromDb(recipe: Recipe) {
         withContext(Dispatchers.IO) {
             dao.deleteRecipe(recipe)
+        }
+    }
+
+    fun getFilteredRecipes(array: List<String>) {
+        uiScope.launch {
+            getFilteredRecipesDatabase(array)
+            _filteredRecipes.value = true
+        }
+    }
+
+    private suspend fun getFilteredRecipesDatabase(array: List<String>) {
+        withContext(Dispatchers.IO) {
+            filtered = dao.getRecipeFilterIngredients(array)
         }
     }
 

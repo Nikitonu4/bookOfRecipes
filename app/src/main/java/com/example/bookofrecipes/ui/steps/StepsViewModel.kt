@@ -31,7 +31,6 @@ class StepsViewModel(
     val numberStep: LiveData<Int>
         get() = _numberStep
 
-    // todo не работает когда 1 шаг всего
     val nextStepVisible: LiveData<Boolean> = Transformations.map(_numberStep) { numberOfStep ->
         numberOfStep != steps.value?.size
     }

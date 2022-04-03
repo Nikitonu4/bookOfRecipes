@@ -11,6 +11,11 @@
         android:name="com.example.bookofrecipes.ui.recipes.RecipesFragment"
         android:label="RecipesFragment"
         tools:layout="@layout/recipes_list_fragment">
+        <argument
+            android:name="filtredIngredients"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_recipesFragment_to_addRecipeFragment"
             app:destination="@id/addRecipesFragment" />
@@ -56,9 +61,9 @@
         android:name="com.example.bookofrecipes.ui.filter.FilterFragment"
         android:label="FilterFragment"
         tools:layout="@layout/filter_list_fragment">
-        <!--        <argument-->
-        <!--            android:name="filtredRecipe"-->
-        <!--            app:argType="array" />-->
+        <action
+            android:id="@+id/action_filterFragment_to_recipesFragment"
+            app:destination="@id/recipesFragment" />
     </fragment>
     <fragment
         android:id="@+id/editRecipeFragment"

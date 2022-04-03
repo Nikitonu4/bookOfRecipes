@@ -82,7 +82,7 @@ class EditRecipeFragment : Fragment() {
                     binding.editRecipeTitle.setError(error);
                     binding.editRecipeTitle.requestFocus();
                 }
-                viewModel.steps.size < 3 -> {
+                viewModel.steps.size < 2 -> {
                     val error: String = application.resources.getString(R.string.error_empty_steps)
                     binding.editRecipeTitle.setError(error);
                     binding.editRecipeTitle.requestFocus()

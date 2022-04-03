@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.navigateUp
 import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.database.BookOfRecipeDatabase
 import com.example.bookofrecipes.databinding.FilterListFragmentBinding
@@ -41,27 +42,16 @@ class FilterFragment : Fragment() {
         })
 
         binding.goFilterButton.setOnClickListener {
-//            Data.filter = viewModel.chooseIngredients
-//            if (viewModel.chooseIngredients.isEmpty()) {
-//                Data.filter = null
-//            }
-            this.findNavController().navigateUp()
-        }
+            var data = ""
+            if (viewModel.chooseIngredients.isNotEmpty()) {
+                data = viewModel.chooseIngredients.joinToString(separator = ",")
+            }
 
-//        viewModel.navigateToRecipe.observe(viewLifecycleOwner, Observer { recipe ->
-//            if (recipe != null) {
-//                this.findNavController().navigate(
-//                    RecipesFragmentDirections
-//                        .actionRecipesFragmentToTheRecipeFragment(recipe.recipeId)
-//                )
-//                viewModel.doneNavigating()
-//            }
-//        })
-
-//        binding.addRecipe.setOnClickListener {
-//            findNavController().navigate(RecipesFragmentDirections.actionRecipesFragmentToAddRecipeFragment())
-//        }
-
+            // штука для сохранения default value в navigation
+            val actionDetail = FilterFragmentDirections.actionFilterFragmentToRecipesFragment()
+            actionDetail.filtredIngredients = data
+            this.findNavController().navigate(actionDetail)
+   }
 
         return binding.root
     }
