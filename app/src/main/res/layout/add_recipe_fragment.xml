@@ -59,6 +59,33 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addRecipeTitle">
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/backButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:text="@string/back_button"
+                        android:theme="@style/Button"
+                        app:layout_constraintEnd_toStartOf="@+id/addRecipeButton"
+                        app:layout_constraintHorizontal_bias="0.367"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/addRecipeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:text="@string/add_recipe_button"
+                        android:theme="@style/Button"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:layout_editor_absoluteY="0dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <Button
                     android:id="@+id/addIngredientButton"
                     android:layout_width="wrap_content"
@@ -73,16 +100,7 @@
                     android:text="@string/add_step_title"
                     android:theme="@style/Button" />
 
-                <Button
-                    android:id="@+id/addRecipeButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_recipe_button"
-                    android:theme="@style/Button"
-                    app:layout_constraintBottom_toBottomOf="@+id/viewSteps"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/viewSteps"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
             </LinearLayout>
 
             <LinearLayout

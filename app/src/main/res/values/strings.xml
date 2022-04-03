@@ -16,9 +16,9 @@
     <string name="title_step">Current step</string>
     <string name="go_to_cook">Go to cook!</string>
     <string name="next_step">Next</string>
-    <string name="previous_step">Previous</string>
     <string name="filter_ingredients_title">Choose ingredients</string>
     <string name="filter_ingredients_button">Filter</string>
+    <string name="back_button">Back</string>
 
 <!--ERRORS-->
     <string name="error_unque_title">Title exist</string>

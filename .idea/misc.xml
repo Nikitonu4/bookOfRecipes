@@ -5,7 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/add_ingredient_item_fragment.xml" value="0.67" />
-        <entry key="app/src/main/res/layout/add_recipe_fragment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/add_recipe_fragment.xml" value="0.11267605633802817" />
         <entry key="app/src/main/res/layout/add_step_item_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/edit_recipe_fragment.xml" value="0.22871376811594202" />
         <entry key="app/src/main/res/layout/filter_item_fragment.xml" value="0.26614583333333336" />
@@ -18,7 +18,7 @@
         <entry key="app/src/main/res/layout/recipes_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recipes_list_fragment.xml" value="0.22" />
         <entry key="app/src/main/res/layout/steps_fragment.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/the_recipe_fragment.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/the_recipe_fragment.xml" value="0.25" />
       </map>
     </option>
   </component>

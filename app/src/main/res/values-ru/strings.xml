@@ -17,9 +17,9 @@
     <string name="title_step">Текущий шаг</string>
     <string name="go_to_cook">Вперед готовить!</string>
     <string name="next_step">Вперед</string>
-    <string name="previous_step">Назад</string>
     <string name="filter_ingredients_title">Выберите ингредиенты</string>
     <string name="filter_ingredients_button">Фильтровать</string>
+    <string name="back_button">Назад</string>
 
     <!--ERRORS-->
     <string name="error_unque_title">Название существует</string>

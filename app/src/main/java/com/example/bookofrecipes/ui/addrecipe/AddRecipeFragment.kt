@@ -87,6 +87,10 @@ class AddRecipeFragment : Fragment() {
             }
         }
 
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
 
         // OBSERVE PART
 

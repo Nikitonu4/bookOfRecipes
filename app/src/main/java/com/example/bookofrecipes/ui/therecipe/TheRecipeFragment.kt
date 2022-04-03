@@ -57,6 +57,10 @@ class TheRecipeFragment : Fragment() {
             )
         }
 
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         return binding.root
     }
 }
