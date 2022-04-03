@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">BookOfRecipes</string>
     <string name="add_recipe_text">Add recipe</string>
+    <string name="edit_recipe_text">Edit recipe</string>
     <string name="add_recipe_button">Create recipe</string>
+    <string name="edit_recipe_button">Edit recipe</string>
     <string name="new_recipe_title">Title</string>
     <string name="add_step_title">Add step</string>
     <string name="add_ingredient_title">Add ingredient</string>

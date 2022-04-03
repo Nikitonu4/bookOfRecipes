@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.entity.Recipe
@@ -16,6 +17,7 @@ class RecipesViewHolder private constructor(itemView: View) : RecyclerView.ViewH
     private val recipeTitle: TextView = itemView.findViewById(R.id.ingredientTitle)
 
     val deleteRecipeButton: ImageButton = itemView.findViewById(R.id.deleteRecipeButton)
+    val editRecipeButton: ImageButton = itemView.findViewById(R.id.editRecipeButton)
     val recipeItem: ConstraintLayout = itemView.findViewById(R.id.recipeItem)
 
     fun bind(item: Recipe) {
@@ -52,6 +54,9 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesViewHolder>() {
         }
         holder.deleteRecipeButton.setOnClickListener {
             viewModel.deleteRecipe(item)
+        }
+        holder.editRecipeButton.setOnClickListener { view ->
+            view.findNavController().navigate(RecipesFragmentDirections.actionRecipesFragmentToEditRecipeFragment(item.recipeId))
         }
     }
 

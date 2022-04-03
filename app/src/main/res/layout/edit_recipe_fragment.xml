@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/addLayout">
+    android:id="@+id/editLayout">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -11,7 +11,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".ui.addrecipe.AddRecipeFragment">
+            tools:context=".ui.editrecipe.EditRecipeFragment">
 
             <TextView
                 android:id="@+id/textView"
@@ -19,7 +19,7 @@
                 android:layout_height="41dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
-                android:text="@string/add_recipe_text"
+                android:text="@string/edit_recipe_text"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <EditText
-                android:id="@+id/addRecipeTitle"
+                android:id="@+id/editRecipeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -57,7 +57,7 @@
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addRecipeTitle">
+                app:layout_constraintTop_toBottomOf="@+id/editRecipeTitle">
 
                 <Button
                     android:id="@+id/addIngredientButton"
@@ -74,10 +74,10 @@
                     android:theme="@style/Button" />
 
                 <Button
-                    android:id="@+id/addRecipeButton"
+                    android:id="@+id/editRecipeButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_recipe_button"
+                    android:text="@string/edit_recipe_button"
                     android:theme="@style/Button"
                     app:layout_constraintBottom_toBottomOf="@+id/viewSteps"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -105,7 +105,7 @@
                     android:textSize="20sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/stepsList"
+                    android:id="@+id/editStepsList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -137,7 +137,7 @@
                     android:textSize="20sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/ingredientsList"
+                    android:id="@+id/editIngredientsList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

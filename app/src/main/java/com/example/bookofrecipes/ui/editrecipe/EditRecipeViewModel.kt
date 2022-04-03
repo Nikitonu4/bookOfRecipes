@@ -1,4 +1,4 @@
-package com.example.bookofrecipes.ui.addrecipe
+package com.example.bookofrecipes.ui.editrecipe
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -11,7 +11,7 @@ import com.example.bookofrecipes.data.entity.Ingredient
 import com.example.bookofrecipes.data.entity.Step
 import kotlinx.coroutines.*
 
-class AddRecipeViewModel(
+class EditRecipeViewModel(
     val dao: BookOfRecipesDatabaseDao,
     application: Application
 ) : AndroidViewModel(application) {

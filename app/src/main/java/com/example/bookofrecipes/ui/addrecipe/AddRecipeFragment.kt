@@ -50,22 +50,28 @@ class AddRecipeFragment : Fragment() {
         // LISTENERS PART
         binding.addStepButton.setOnClickListener {
             viewModel.steps.add(Step())
+            if (viewModel.steps.size != 0) {
+                binding.viewSteps.visibility = View.VISIBLE
+            }
             stepsAdapter.data = viewModel.steps
         }
 
+        // todo некорректно работает добавление из-за adapter?
         binding.addIngredientButton.setOnClickListener {
             viewModel.ingredients.add(Ingredient())
+            if (viewModel.ingredients.size != 0) {
+                binding.viewIngredients.visibility = View.VISIBLE
+            }
             ingredientAdapter.data = viewModel.ingredients
         }
 
         binding.addRecipeButton.setOnClickListener {
             val title = binding.addRecipeTitle.text.toString()
-            if(title.isEmpty()){
+            if (title.isEmpty()) {
                 val error: String = application.resources.getString(R.string.error_empty_title)
                 binding.addRecipeTitle.setError(error);
                 binding.addRecipeTitle.requestFocus();
-            }
-            else{
+            } else {
                 viewModel.existRecipe(title)
             }
         }

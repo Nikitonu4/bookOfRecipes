@@ -2,7 +2,9 @@
 <resources>
     <string name="app_name">Книга рецептов</string>
     <string name="add_recipe_text">Добавление рецепта </string>
+    <string name="edit_recipe_text">Изменение рецепта</string>
     <string name="add_recipe_button">Создать рецепт</string>
+    <string name="edit_recipe_button">Изменить рецепт</string>
     <string name="new_recipe_title">Название</string>
     <string name="add_step_title">Добавить шаг</string>
     <string name="add_ingredient_title">Добавить ингредиент</string>

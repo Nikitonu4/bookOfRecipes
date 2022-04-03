@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_recipesFragment_to_filterFragment"
             app:destination="@id/filterFragment" />
+        <action
+            android:id="@+id/action_recipesFragment_to_editRecipeFragment"
+            app:destination="@id/editRecipeFragment" />
     </fragment>
     <fragment
         android:id="@+id/addRecipesFragment"
@@ -43,7 +46,7 @@
         android:id="@+id/stepsFragment"
         android:name="com.example.bookofrecipes.ui.steps.StepsFragment"
         android:label="steps_fragment"
-        tools:layout="@layout/steps_fragment" >
+        tools:layout="@layout/steps_fragment">
         <argument
             android:name="recipeId"
             app:argType="long" />
@@ -52,10 +55,19 @@
         android:id="@+id/filterFragment"
         android:name="com.example.bookofrecipes.ui.filter.FilterFragment"
         android:label="FilterFragment"
-        tools:layout="@layout/filter_list_fragment" >
-<!--        <argument-->
-<!--            android:name="filtredRecipe"-->
-<!--            app:argType="array" />-->
+        tools:layout="@layout/filter_list_fragment">
+        <!--        <argument-->
+        <!--            android:name="filtredRecipe"-->
+        <!--            app:argType="array" />-->
+    </fragment>
+    <fragment
+        android:id="@+id/editRecipeFragment"
+        android:name="com.example.bookofrecipes.ui.editrecipe.EditRecipeFragment"
+        android:label="EditRecipeFragment"
+        tools:layout="@layout/edit_recipe_fragment">
+        <argument
+            android:name="recipeId"
+            app:argType="long" />
     </fragment>
 
 </navigation>
