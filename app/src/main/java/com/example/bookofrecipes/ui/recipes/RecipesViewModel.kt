@@ -6,8 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.bookofrecipes.data.entity.Recipe
 import com.example.bookofrecipes.data.dao.BookOfRecipesDatabaseDao
-import com.example.bookofrecipes.data.entity.Ingredient
-import com.example.bookofrecipes.data.entity.Step
 import kotlinx.coroutines.*
 
 class RecipesViewModel(
@@ -40,7 +38,7 @@ class RecipesViewModel(
 
     private suspend fun deleteRecipeFromDb(recipe: Recipe) {
         withContext(Dispatchers.IO) {
-            dao.delete(recipe)
+            dao.deleteRecipe(recipe)
         }
     }
 

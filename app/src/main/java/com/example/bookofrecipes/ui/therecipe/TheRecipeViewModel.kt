@@ -1,7 +1,6 @@
 package com.example.bookofrecipes.ui.therecipe
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.bookofrecipes.data.entity.Recipe
@@ -40,7 +39,7 @@ class TheRecipeViewModel(
 
     private suspend fun getIngredientsDatabase(): ArrayList<Ingredient?>? {
         return withContext(Dispatchers.IO) {
-            dao.getIngredientsForRecipe(recipeId) as ArrayList<Ingredient?>
+            dao.getIngredientsByRecipeId(recipeId) as ArrayList<Ingredient?>
         }
     }
 

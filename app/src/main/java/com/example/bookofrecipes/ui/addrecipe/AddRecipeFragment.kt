@@ -24,7 +24,6 @@ class AddRecipeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        // Get a reference to the binding object and inflate the fragment views.
         val binding: AddRecipeFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.add_recipe_fragment, container, false
         )
@@ -79,11 +78,12 @@ class AddRecipeFragment : Fragment() {
                     binding.addRecipeTitle.requestFocus()
                 }
                 viewModel.ingredients.isNullOrEmpty() -> {
-                    val error: String = application.resources.getString(R.string.error_empty_ingredients)
+                    val error: String =
+                        application.resources.getString(R.string.error_empty_ingredients)
                     binding.addRecipeTitle.setError(error);
                     binding.addRecipeTitle.requestFocus()
                 }
-                else ->  viewModel.existRecipe(title)
+                else -> viewModel.existRecipe(title)
             }
         }
 

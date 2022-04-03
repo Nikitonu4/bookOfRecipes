@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.example.bookofrecipes.data.entity.Recipe
 import com.example.bookofrecipes.data.dao.BookOfRecipesDatabaseDao
 import com.example.bookofrecipes.data.entity.Ingredient
@@ -12,35 +11,66 @@ import com.example.bookofrecipes.data.entity.Step
 import kotlinx.coroutines.*
 
 class EditRecipeViewModel(
+    val recipeId: Long,
     val dao: BookOfRecipesDatabaseDao,
     application: Application
 ) : AndroidViewModel(application) {
     private var viewModelJob = Job()
-
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    var steps = ArrayList<Step>()
+    var recipe = Recipe()
     var ingredients = ArrayList<Ingredient>()
+    var steps = ArrayList<Step>()
+    var oldIngredientsId = ArrayList<Long>()
 
-    private val _canCreateNewRecipe = MutableLiveData<Boolean>()
-    val canCreateNewRecipe: LiveData<Boolean>
-        get() = _canCreateNewRecipe
+    private val _afterInit = MutableLiveData<Boolean>()
+    val afterInit: LiveData<Boolean>
+        get() = _afterInit
 
     private val _isExistRecipe = MutableLiveData<Boolean>()
     val isExistRecipe: LiveData<Boolean>
         get() = _isExistRecipe
 
-    private val _recipeId = MutableLiveData<Long>()
-    val recipeId: LiveData<Long>
-        get() = _recipeId
+    private val _canEditRecipe = MutableLiveData<Boolean>()
+    val canEditRecipe: LiveData<Boolean>
+        get() = _canEditRecipe
 
-    private val _navigateAfterNewRecipe = MutableLiveData<Boolean>()
-    val navigateAfterNewRecipe: LiveData<Boolean>
-        get() = _navigateAfterNewRecipe
+    private val _navigateAfterEditRecipe = MutableLiveData<Boolean>()
+    val navigateAfterEditRecipe: LiveData<Boolean>
+        get() = _navigateAfterEditRecipe
 
-    private fun initializeRecipeId(title: String) {
+    init {
+        initializeRecipe()
+    }
+
+    private fun initializeRecipe() {
         uiScope.launch {
-            _recipeId.value = getRecipeByTitleFromDatabase(title)
+            recipe = getRecipeFromDatabase()
+            ingredients = getIngredientsDatabase()
+            steps = getStepsDatabase()
+            ingredients.map { ingredient -> ingredient.ingredientId }.also {
+                oldIngredientsId =
+                    it as ArrayList<Long>
+            }
+            _afterInit.value = true
+        }
+    }
+
+    private suspend fun getRecipeFromDatabase(): Recipe {
+        return withContext(Dispatchers.IO) {
+            dao.getRecipeById(recipeId)!!
+        }
+    }
+
+    private suspend fun getIngredientsDatabase(): ArrayList<Ingredient> {
+        return withContext(Dispatchers.IO) {
+            dao.getIngredientsByRecipeId(recipeId) as ArrayList<Ingredient>
+        }
+    }
+
+    private suspend fun getStepsDatabase(): ArrayList<Step> {
+        return withContext(Dispatchers.IO) {
+            dao.getStepsByRecipeId(recipeId) as ArrayList<Step>
         }
     }
 
@@ -50,9 +80,21 @@ class EditRecipeViewModel(
         }
     }
 
-    private suspend fun insertRecipe(recipe: Recipe) {
+    private suspend fun updateRecipe() {
         withContext(Dispatchers.IO) {
-            dao.insertRecipe(recipe)
+            dao.updateRecipe(recipe)
+        }
+    }
+
+    private suspend fun updateIngredient(ingredient: Ingredient) {
+        withContext(Dispatchers.IO) {
+            dao.updateIngredient(ingredient)
+        }
+    }
+
+    private suspend fun updateStep(step: Step) {
+        withContext(Dispatchers.IO) {
+            dao.updateStep(step)
         }
     }
 
@@ -62,54 +104,85 @@ class EditRecipeViewModel(
         }
     }
 
-    private suspend fun insertIngredients(ingredients: List<Ingredient>) {
+    private suspend fun insertIngredient(ingredient: Ingredient) {
         withContext(Dispatchers.IO) {
-            dao.bulkInsertIngredients(ingredients)
+            dao.insertIngredient(ingredient)
         }
     }
 
+    private suspend fun removeSteps() {
+        withContext(Dispatchers.IO) {
+            dao.removeStepByRecipeId(recipeId)
+        }
+    }
+
+    private suspend fun deleteIngredients() {
+        withContext(Dispatchers.IO) {
+            dao.deleteIngredients(oldIngredientsId)
+        }
+    }
+
+    // проверяем существования рецепта с таким именем
     fun existRecipe(title: String) {
         uiScope.launch {
-            val recipe = getRecipeByTitleFromDatabase(title)
-            val isExistRecipe = recipe != null
-            _isExistRecipe.value = isExistRecipe
-            _canCreateNewRecipe.value = !isExistRecipe
+            if (recipe.title != title) {
+                val recipe = getRecipeByTitleFromDatabase(title)
+                val isExistRecipe = recipe != null
+                _isExistRecipe.value = isExistRecipe
+                _canEditRecipe.value = !isExistRecipe
+            } else {
+                _isExistRecipe.value = false
+                _canEditRecipe.value = true
+            }
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
+    fun onEditRecipe(title: String) {
+        uiScope.launch {
+            // если title поменялся
+            if (recipe.title != title) {
+                recipe.title = title
+                updateRecipe()
+            }
+
+            updateIngredients()
+            updateSteps()
+
+            _navigateAfterEditRecipe.value = true
+        }
     }
 
-    fun onSaveSteps(id: Long) {
+    private fun updateIngredients() {
         uiScope.launch {
-            steps.forEachIndexed { index, step -> step.recipeId = id
-                step.numberOfStep = index+1
+            ingredients.forEach { ingredient ->
+                // если ингредиент уже был в старом списке
+                if (oldIngredientsId.contains(ingredient.ingredientId)) {
+                    oldIngredientsId.remove(ingredient.ingredientId)
+                    updateIngredient(ingredient)
+                    // если добавили новый(у него ingredientId == 0)
+                } else {
+                    ingredient.recipeId = recipeId
+                    insertIngredient(ingredient)
+                }
+            }
+
+            // тут останутся ингредиенты, которые мы удалили
+            deleteIngredients()
+        }
+    }
+
+    private fun updateSteps() {
+        uiScope.launch {
+            removeSteps()
+            steps.forEachIndexed { index, step ->
+                step.recipeId = recipeId
+                step.numberOfStep = index + 1
             }
             insertSteps(steps)
         }
     }
 
-    fun onSaveIngredients(id: Long) {
-        uiScope.launch {
-            ingredients.forEach { ingredient -> ingredient.recipeId = id }
-            insertIngredients(ingredients)
-            _navigateAfterNewRecipe.value = true
-        }
-    }
-
-    fun onSaveRecipe(title: String) {
-        uiScope.launch {
-            val recipe = Recipe()
-            recipe.title = title
-
-            insertRecipe(recipe)
-            initializeRecipeId(title)
-        }
-    }
-
     fun doneNavigating() {
-        _navigateAfterNewRecipe.value = false
+        _navigateAfterEditRecipe.value = false
     }
 }

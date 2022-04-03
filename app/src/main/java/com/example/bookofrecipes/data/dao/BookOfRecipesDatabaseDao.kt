@@ -41,10 +41,6 @@ interface BookOfRecipesDatabaseDao {
     @Insert()
     fun bulkInsertIngredients(ingredients: List<Ingredient>): List<Long>
 
-//    @Transaction
-//    @Query("SELECT * FROM recipes_table WHERE recipe_id = :key")
-//    fun getRecipeWithSteps(key: Long): LiveData<List<RecipeWithSteps>>
-
     @Query("SELECT * FROM recipes_table ORDER BY recipe_id DESC")
     fun getAllRecipes(): LiveData<List<Recipe>>
 
@@ -52,7 +48,10 @@ interface BookOfRecipesDatabaseDao {
     fun getAllIngredients(): LiveData<List<String>>
 
     @Query("SELECT * FROM ingredients_table WHERE recipe_id = :key")
-    fun getIngredientsForRecipe(key: Long): List<Ingredient>
+    fun getIngredientsByRecipeId(key: Long): List<Ingredient>
+
+    @Query("SELECT * FROM steps_table WHERE recipe_id = :key ORDER BY number_of_step")
+    fun getStepsByRecipeId(key: Long): List<Step>
 
     @Query("SELECT * FROM recipes_table WHERE title = :key")
     fun getRecipeByTitle(key: String): Recipe?
@@ -60,25 +59,23 @@ interface BookOfRecipesDatabaseDao {
     @Query("SELECT * FROM recipes_table WHERE recipe_id = :key")
     fun getRecipeById(key: Long): Recipe?
 
-    @Query("SELECT * FROM steps_table WHERE recipe_id = :key ORDER BY number_of_step")
-    fun getStepsByRecipeId(key: Long): List<Step>
-
     @Delete
-    fun delete(recipe: Recipe)
-
-//    @Update
-//    fun update(recipe: Recipe)
-//
-
-//
-//    @Query("DELETE FROM recipes_table")
-//    fun clear()
-//
+    fun deleteRecipe(recipe: Recipe)
 
 
-//    @Query(
-//        "SELECT * FROM recipes_table r" +
-//                " JOIN steps_table s ON r.recipe_id = s.step_id"
-//    )
-//    fun loadUserAndBookNames(): Map<Recipe, List<Step>>
+    @Query("DELETE FROM ingredients_table WHERE ingredient_id in (:idList)")
+    fun deleteIngredients(idList: List<Long>)
+
+    @Query("DELETE FROM steps_table WHERE recipe_id = :key")
+    fun removeStepByRecipeId(key: Long)
+
+    @Update
+    fun updateRecipe(recipe: Recipe)
+
+    @Update
+    fun updateIngredient(ingredient: Ingredient)
+
+    @Update
+    fun updateStep(step: Step)
+
 }

@@ -84,8 +84,9 @@ class AddRecipeViewModel(
 
     fun onSaveSteps(id: Long) {
         uiScope.launch {
-            steps.forEachIndexed { index, step -> step.recipeId = id
-                step.numberOfStep = index+1
+            steps.forEachIndexed { index, step ->
+                step.recipeId = id
+                step.numberOfStep = index + 1
             }
             insertSteps(steps)
         }

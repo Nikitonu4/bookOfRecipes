@@ -12,7 +12,6 @@ import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.entity.Step
 
 class EditStepsViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val res: Resources = itemView.context.resources
     private val stepDescription: EditText = itemView.findViewById(R.id.stepDescription)
     val deleteStepButton: ImageView = itemView.findViewById(R.id.deleteStepButton)
 

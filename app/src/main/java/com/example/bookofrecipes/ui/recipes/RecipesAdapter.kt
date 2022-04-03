@@ -14,7 +14,7 @@ import com.example.bookofrecipes.data.entity.Recipe
 
 class RecipesViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val res: Resources = itemView.context.resources
-    private val recipeTitle: TextView = itemView.findViewById(R.id.ingredientTitle)
+    private val recipeTitle: TextView = itemView.findViewById(R.id.recipeTitle)
 
     val deleteRecipeButton: ImageButton = itemView.findViewById(R.id.deleteRecipeButton)
     val editRecipeButton: ImageButton = itemView.findViewById(R.id.editRecipeButton)
