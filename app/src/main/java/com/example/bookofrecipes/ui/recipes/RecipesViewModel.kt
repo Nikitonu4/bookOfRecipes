@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.bookofrecipes.data.entity.Recipe
 import com.example.bookofrecipes.data.dao.BookOfRecipesDatabaseDao
+import com.example.bookofrecipes.data.entity.Ingredient
+import com.example.bookofrecipes.data.entity.Step
 import kotlinx.coroutines.*
 
 class RecipesViewModel(
@@ -47,7 +49,7 @@ class RecipesViewModel(
 
     fun getFilteredRecipes(array: List<String>) {
         uiScope.launch {
-            filtered = getFilteredRecipesDatabase(array)
+            filtered = getFilteredRecipesDatabase(array).distinct()
             _filteredRecipes.value = true
         }
     }
@@ -66,4 +68,6 @@ class RecipesViewModel(
         super.onCleared()
         viewModelJob.cancel()
     }
+
+
 }

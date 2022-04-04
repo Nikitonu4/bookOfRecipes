@@ -63,7 +63,7 @@ class EditRecipeFragment : Fragment() {
         })
 
         // LISTENERS PART
-        // todo некорректно работает изменение из-за adapter?
+
         binding.addStepButton.setOnClickListener {
             viewModel.steps.add(Step())
             stepsAdapter.data = viewModel.steps

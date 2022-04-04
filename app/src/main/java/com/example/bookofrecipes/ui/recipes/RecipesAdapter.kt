@@ -13,7 +13,6 @@ import com.example.bookofrecipes.R
 import com.example.bookofrecipes.data.entity.Recipe
 
 class RecipesViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val res: Resources = itemView.context.resources
     private val recipeTitle: TextView = itemView.findViewById(R.id.recipeTitle)
 
     val deleteRecipeButton: ImageButton = itemView.findViewById(R.id.deleteRecipeButton)

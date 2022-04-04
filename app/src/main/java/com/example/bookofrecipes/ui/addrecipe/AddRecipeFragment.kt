@@ -55,7 +55,6 @@ class AddRecipeFragment : Fragment() {
             stepsAdapter.data = viewModel.steps
         }
 
-        // todo некорректно работает добавление из-за adapter?
         binding.addIngredientButton.setOnClickListener {
             viewModel.ingredients.add(Ingredient())
             if (viewModel.ingredients.size != 0) {
